@@ -16,7 +16,7 @@
         <div class="menu-toggle" onclick="toggleMenu()">&#9776;</div>
         <ul class="menu">
             <li><a href="https:/daunbonteng.github.io/dashboard/">Home</a></li>
-            <li><a href="https://daunbonteng.github.io/mukapeta/">See Fullscreen
+            <li><a href="https://khairufadilah.github.io/pemilu-bali-2024/#9/-8.5498/115.2466">See Fullscreen
                 Map</a></li>
             <li><a href="https://instagram.com/ngguhbd">Contact</a></li>
         </ul>
@@ -26,8 +26,101 @@
         <!-- Peta -->
         <div class="bg-white p-4 shadow rounded">
         <h2 class="text-lg font-semibold mb-4">Peta Interaktif</h2>
-        <iframe src="https://daunbonteng.github.io/mukapeta/" class="w-full h-80 border
+        <iframe src="https://khairufadilah.github.io/pemilu-bali-2024/#9/-8.5498/115.2466" class="w-full h-80 border
         rounded" allowfullscreen></iframe>
         </div>
+        <!-- Diagram -->
+    <div class="bg-white p-4 shadow rounded">
+        <h2 class="text-lg font-semibold mb-4">Diagram Infografis</h2>
+        <!-- <canvas id="chart" class="w-full h-80"></canvas> -->
+        <!-- <h2 style="text-align: center;">Total Suara Partai per Kabupaten/Kota</h2> -->
+        <canvas id="stackedBarChart" width="800" height="400"></canvas>
+    </div>
+
+    <script>
+        // Labels untuk sumbu X (Kabupaten/Kota)
+        const labels = ["Jembrana", "Tabanan", "Badung", "Gianyar", "Klungkung", "Bangli", "Karangasem", "Buleleng", "Denpasar"];
+    
+        // Data suara partai per kabupaten/kota
+        const dataPartai = {
+            "PKB": [8644, 2257, 4203, 1532, 1483, 1315, 3575, 11603, 7016],
+            "Gerindra": [19713, 27850, 31318, 22949, 26485, 11772, 45829, 45337, 64060],
+            "PDIP": [63306, 234166, 180481, 247811, 53559, 91340, 113400, 152917, 153904],
+            "Golkar": [21767, 26011, 59825, 22088, 12408, 22898, 45970, 80772, 41782],
+            "NasDem": [16412, 7407, 11129, 7764, 4244, 8029, 27143, 51590, 13960],
+            "Partai Buruh": [708, 638, 956, 659, 817, 695, 1306, 1566, 1700],
+            "Partai Gelora": [1384, 1227, 2057, 807, 890, 834, 3264, 3954, 9314],
+            "PKS": [1373, 1039, 2216, 402, 511, 294, 2445, 3166, 7699],
+            "PKN": [3085, 1650, 2368, 1182, 1259, 1325, 4621, 3923, 4268],
+            "Hanura": [378, 326, 825, 306, 2584, 279, 1190, 3385, 578],
+            "Partai Garuda": [327, 342, 419, 284, 284, 307, 880, 924, 833],
+            "PAN": [780, 340, 611, 332, 256, 239, 479, 1724, 1922],
+            "PBB": [221, 199, 236, 94, 63, 80, 254, 276, 382],
+            "Partai Demokrat": [29113, 3538, 12369, 17340, 9884, 8840, 28173, 44650, 20569],
+            "PSI": [3823, 3511, 10544, 4590, 3103, 1483, 4328, 6148, 23192],
+            "Partai Perindo": [387, 494, 1498, 1552, 664, 254, 1343, 1112, 3227],
+            "PPP": [1610, 290, 302, 138, 147, 138, 363, 1506, 738],
+            "Partai Ummat": [228, 119, 210, 95, 80, 114, 261, 400, 653]
+        };
+    
+        // Warna khusus untuk setiap partai
+        const partaiColors = {
+            "PKB": "darkgreen",
+            "Gerindra": "darkorange",
+            "PDIP": "red",
+            "Golkar": "yellow",
+            "NasDem": "darkblue",
+            "Partai Buruh": "orange",
+            "Partai Gelora": "lightblue",
+            "PKS": "orange",
+            "PKN": "darkred",
+            "Hanura": "lightcoral",
+            "Partai Garuda": "blue",
+            "PAN": "darkblue",
+            "PBB": "green",
+            "Partai Demokrat": "darkblue",
+            "PSI": "red",
+            "Partai Perindo": "blue",
+            "PPP": "green",
+            "Partai Ummat": "black"
+        };
+    
+        // Menyiapkan dataset
+        const datasets = Object.keys(dataPartai).map(partai => ({
+            label: partai,
+            data: dataPartai[partai],
+            backgroundColor: partaiColors[partai],
+            borderColor: partaiColors[partai],
+            borderWidth: 1
+        }));
+    
+        // Membuat grafik
+        const ctx = document.getElementById('stackedBarChart').getContext('2d');
+        const stackedBarChart = new Chart(ctx, {
+            type: 'bar',
+            data: {
+                labels: labels,
+                datasets: datasets
+            },
+            options: {
+                responsive: true,
+                plugins: {
+                    legend: {
+                        position: 'top'
+                    },
+                },
+                scales: {
+                    x: {
+                        stacked: true // Mengaktifkan stack pada sumbu X
+                    },
+                    y: {
+                        stacked: true, // Mengaktifkan stack pada sumbu Y
+                        beginAtZero: true
+                    }
+                }
+            }
+        });
+    </script>
+  </div>
     </body>
 </html>
